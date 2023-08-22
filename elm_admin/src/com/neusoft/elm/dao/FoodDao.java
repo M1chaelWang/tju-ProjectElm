@@ -4,7 +4,7 @@ import java.util.List;
 import com.neusoft.elm.po.Food;
 
 public interface FoodDao {
-	//获取食品列表
+	// 获取食品列表
 	public List<Food> listFoodByBusinessId(Integer businessId);
 	//保存食品
 	public int saveFood(Food food);
