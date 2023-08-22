@@ -161,9 +161,7 @@ public class BusinessDaoImpl implements BusinessDao{
  @Override
  public int updateBusiness(Business business) {
  int result = 0;
- String sql = "update business set
-businessName=?,businessAddress=?,businessExplain=?,starPrice=?,deliveryPrice=? where
-businessId=?";
+ String sql = "update business setbusinessName=?,businessAddress=?,businessExplain=?,starPrice=?,deliveryPrice=? wherebusinessId=?";
  try {
  con = DBUtil.getConnection();
  pst = con.prepareStatement(sql);
