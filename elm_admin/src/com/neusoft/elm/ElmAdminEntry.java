@@ -2,6 +2,10 @@ package com.neusoft.elm;
 
 import java.util.Scanner;
 
+import com.neusoft.elm.po.Admin;
+import com.neusoft.elm.view.AdminView;
+import com.neusoft.elm.view.impl.AdminViewImpl;
+
 public class ElmAdminEntry {
     public void work() {
         Scanner input = new Scanner(System.in);
@@ -10,8 +14,11 @@ public class ElmAdminEntry {
         System.out.println("| \t\t\t饿了么后台管理系统 \t\t\t|");
         System.out.println("-----------------------------------------------------------------");
         
+        AdminView adminView = new AdminViewImpl();
+        Admin admin  = adminView.login();
+
         // login
-        if (true) {
+        if (admin != null) {
             int menu = 0;
             while (menu != 5) {
                 // main menu
