@@ -3,6 +3,7 @@ package com.neusoft.elm.view.impl;
 import java.util.Scanner;
 
 import com.neusoft.elm.dao.AdminDao;
+import com.neusoft.elm.dao.impl.AdminDaoImpl;
 import com.neusoft.elm.po.Admin;
 import com.neusoft.elm.view.AdminView;
 
