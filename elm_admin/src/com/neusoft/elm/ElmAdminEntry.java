@@ -3,8 +3,11 @@ package com.neusoft.elm;
 import java.util.Scanner;
 
 import com.neusoft.elm.po.Admin;
+import com.neusoft.elm.po.Business;
 import com.neusoft.elm.view.AdminView;
+import com.neusoft.elm.view.BusinessView;
 import com.neusoft.elm.view.impl.AdminViewImpl;
+import com.neusoft.elm.view.impl.BusinessViewImpl;
 
 public class ElmAdminEntry {
     public void work() {
@@ -15,6 +18,7 @@ public class ElmAdminEntry {
         System.out.println("-----------------------------------------------------------------");
         
         AdminView adminView = new AdminViewImpl();
+        BusinessView businessView = new BusinessViewImpl();
         Admin admin  = adminView.login();
 
         // login
@@ -27,7 +31,7 @@ public class ElmAdminEntry {
                 menu = input.nextInt();
                 switch (menu) {
                     case 1:
-                        System.out.println("所有商家列表");
+                        businessView.listBusinessAll();
                         break;
                     case 2:
                         System.out.println("搜索商家");
