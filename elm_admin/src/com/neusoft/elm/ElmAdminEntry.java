@@ -16,10 +16,10 @@ public class ElmAdminEntry {
         System.out.println("-----------------------------------------------------------------");
         System.out.println("| \t\t\t饿了么后台管理系统 \t\t\t|");
         System.out.println("-----------------------------------------------------------------");
-        
+
         AdminView adminView = new AdminViewImpl();
         BusinessView businessView = new BusinessViewImpl();
-        Admin admin  = adminView.login();
+        Admin admin = adminView.login();
 
         // login
         if (admin != null) {

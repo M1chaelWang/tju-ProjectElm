@@ -60,7 +60,7 @@ public class BusinessDaoImpl implements BusinessDao {
          pst = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
          pst.setString(1, businessName);
          pst.executeUpdate();
-         // 获取自增长列值
+         // 获取自增长列值（一行一列）
          rs = pst.getGeneratedKeys();
          if (rs.next()) {
             businessId = rs.getInt(1);
