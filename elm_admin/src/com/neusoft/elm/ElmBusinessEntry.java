@@ -13,9 +13,9 @@ public class ElmBusinessEntry {
 	public void work() {
 		Scanner input = new Scanner(System.in);
 
-		System.out.println("---------------------------------------------------------");
+		System.out.println("-----------------------------------------------------------------");
 		System.out.println("|\t\t\t 饿了么后台管理系统 \t\t\t|");
-		System.out.println("---------------------------------------------------------");
+		System.out.println("-----------------------------------------------------------------");
 
 		BusinessView businessView = new BusinessViewImpl();
 
