@@ -1,4 +1,5 @@
 package com.neusoft.elm.view.impl;
+
 import java.util.List;
 import java.util.Scanner;
 import com.neusoft.elm.dao.BusinessDao;
@@ -7,6 +8,7 @@ import com.neusoft.elm.po.Business;
 import com.neusoft.elm.view.BusinessView;
 public class BusinessViewImpl implements BusinessView{
 private Scanner input = new Scanner(System.in);
+
 @Override
 public void listBusinessAll() {
 BusinessDao dao = new BusinessDaoImpl();
