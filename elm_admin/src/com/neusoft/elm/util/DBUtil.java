@@ -10,7 +10,7 @@ public class DBUtil {
     private static final String URL = "jdbc:mysql://localhost:3306/elm_admin?characterEncoding=utf-8";
     private static final String DRIVER = "com.mysql.jdbc.Driver";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "zzq321";
+    private static final String PASSWORD = "P@ssw0rd";
 
     // 获取Connection
     public static Connection getConnection() {
