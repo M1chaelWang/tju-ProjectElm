@@ -15,7 +15,7 @@ public class DBUtil {
 
 	private static final ThreadLocal<Connection> TL = new ThreadLocal<>();
 
-	// »ñÈ¡Ò»¸öConnection
+	// è·å–ä¸€ä¸ªConnection
 	public static Connection getConnection() {
 		Connection con = null;
 		con = TL.get();
@@ -26,7 +26,7 @@ public class DBUtil {
 		return con;
 	}
 
-	// ¿ªÆôÒ»¸öÊÂÎñ
+	// å¼€å¯ä¸€ä¸ªäº‹åŠ¡
 	public static void beginTransaction() throws Exception {
 		Connection con = null;
 		con = TL.get();
@@ -34,23 +34,23 @@ public class DBUtil {
 			con = createConnection();
 			TL.set(con);
 		}
-		// ¿ªÆôÒ»¸öÊÂÎñ
+		// å¼€å¯ä¸€ä¸ªäº‹åŠ¡
 		con.setAutoCommit(false);
 	}
 
-	// Ìá½»Ò»¸öÊÂÎñ
+	// æäº¤ä¸€ä¸ªäº‹åŠ¡
 	public static void commitTransaction() throws Exception {
 		Connection con = TL.get();
 		con.commit();
 	}
 
-	// »Ø¹öÒ»¸öÊÂÎñ
+	// å›æ»šä¸€ä¸ªäº‹åŠ¡
 	public static void rollbackTransaction() throws Exception {
 		Connection con = TL.get();
 		con.rollback();
 	}
 
-	// ¹Ø±Õ×ÊÔ´
+	// å…³é—­èµ„æº
 	public static void close(ResultSet rs, PreparedStatement pst) {
 
 		try {
@@ -82,7 +82,7 @@ public class DBUtil {
 			if (con != null) {
 				con.close();
 			}
-			// ±ØĞëÒªremove
+			// å¿…é¡»è¦remove
 			TL.remove();
 		} catch (SQLException e) {
 			e.printStackTrace();

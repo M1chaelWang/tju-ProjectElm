@@ -17,28 +17,28 @@ public class DispatcherServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// ÖĞÎÄ±àÂë´¦Àí
+		// ä¸­æ–‡ç¼–ç å¤„ç†
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("application/json;charset=utf-8");
 		
-		// »ñÈ¡¿Í»§¶ËÇëÇóÂ·¾¶
+		// è·å–å®¢æˆ·ç«¯è¯·æ±‚è·¯å¾„
 		String path = request.getServletPath();
 		
-		// ¸ù¾İÇëÇóÂ·¾¶£¬½«controller×é¼şÀàÃûÓë·½·¨Ãû½âÎö³öÀ´
+		// æ ¹æ®è¯·æ±‚è·¯å¾„ï¼Œå°†controllerç»„ä»¶ç±»åä¸æ–¹æ³•åè§£æå‡ºæ¥
 		String className = path.substring(1, path.lastIndexOf("/"));
 		String methodName = path.substring(path.lastIndexOf("/") + 1);
 		
 		PrintWriter out = null;
 		
 		try {
-			// Í¨¹ıClass.forName»ñÈ¡controllereÀàµÄĞÅÏ¢
+			// é€šè¿‡Class.forNameè·å–controllereç±»çš„ä¿¡æ¯
 			Class clazz = Class.forName("com.neusoft.elm.controller." + className);
-			// ´´½¨controller¶ÔÏó
+			// åˆ›å»ºcontrollerå¯¹è±¡
 			Object controller = clazz.newInstance();
-			// »ñÈ¡controllerµÄ·½·¨
+			// è·å–controllerçš„æ–¹æ³•
 			Method method = clazz.getMethod(methodName,new Class[] {HttpServletRequest.class});
-			// µ÷ÓÃcontrollerÖĞµÄ·½·¨
+			// è°ƒç”¨controllerä¸­çš„æ–¹æ³•
 			Object result = method.invoke(controller, new Object[] {request});
 			
 			out = response.getWriter();
@@ -47,8 +47,8 @@ public class DispatcherServlet extends HttpServlet {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("DispatcherServletĞÅÏ¢£ºServletÇëÇóurlÂ·¾¶£º" + path);
-			System.out.println("DispatcherServletĞÅÏ¢£ºÀàÃû£º" + className + "\t·½·¨Ãû£º" + methodName);
+			System.out.println("DispatcherServletä¿¡æ¯ï¼šServletè¯·æ±‚urlè·¯å¾„ï¼š" + path);
+			System.out.println("DispatcherServletä¿¡æ¯ï¼šç±»åï¼š" + className + "\tæ–¹æ³•åï¼š" + methodName);
 		} finally {
 			out.close();
 		}
