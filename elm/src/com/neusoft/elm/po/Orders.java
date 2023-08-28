@@ -1,5 +1,7 @@
 package com.neusoft.elm.po;
 
+import java.util.List;
+
 public class Orders {
 	
 	private Integer orderId;
@@ -9,6 +11,11 @@ public class Orders {
 	private Double orderTotal;
 	private Integer daId;
 	private Integer orderState;
+	
+	// 多对一
+	private Business business;
+	// 一对多
+	private List<OrderDetailet> list;
 	
 	public Integer getOrderId() {
 		return orderId;
@@ -52,6 +59,17 @@ public class Orders {
 	public void setOrderState(Integer orderState) {
 		this.orderState = orderState;
 	}
-	
+	public Business getBusiness() {
+		return business;
+	}
+	public void setBusiness(Business business) {
+		this.business = business;
+	}
+	public List<OrderDetailet> getList() {
+		return list;
+	}
+	public void setList(List<OrderDetailet> list) {
+		this.list = list;
+	}
 	
 }

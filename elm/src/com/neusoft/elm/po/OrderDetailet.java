@@ -7,6 +7,8 @@ public class OrderDetailet {
 	private Integer foodId;
 	private Integer quantity;
 	
+	private Food food;
+	
 	public Integer getOdId() {
 		return odId;
 	}
@@ -31,6 +33,11 @@ public class OrderDetailet {
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
-	
+	public Food getFood() {
+		return food;
+	}
+	public void setFood(Food food) {
+		this.food = food;
+	}
 	
 }
