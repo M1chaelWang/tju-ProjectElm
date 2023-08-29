@@ -1,6 +1,4 @@
-//import Vue from 'vue'
-import {createApp} from 'vue'
-
+import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import 'font-awesome/css/font-awesome.min.css'
@@ -18,10 +16,11 @@ import {
 const app =createApp(App)
 app.config.productionTip = false
 app.use(router).mount('#app')
-//设置axios的基础url部分
-axios.defaults.baseURL = 'https://localhost:8080/elm/';
+axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8'
+axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*'
+axios.defaults.baseURL = 'http://localhost:8080/elm/';
 //将axios挂载到vue实例上，使用时就可以 this.$axios 这样使用了
-app.config.globalProperties.$axios = axios;
+app.config.globalProperties.$http = axios;
 app.config.globalProperties.$qs = qs;
 app.config.globalProperties.$getCurDate = getCurDate;
 app.config.globalProperties.$setSessionStorage = setSessionStorage;
@@ -44,5 +43,4 @@ router.beforeEach(function (to, from, next) {
 });
 app.use(router)
 app.use(table)
-
 app.mount("#app");

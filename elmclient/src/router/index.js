@@ -68,11 +68,12 @@ const routes = [{
   component: Register
 }
 ]
-//解决重复路由报异常问题
-/*const originalPush = createRouter(createRouter).push;
-createRouter(createRoutercreateRouter).push = function push(location) {
-  return originalPush.call(this, location).catch(err => {})
+
+/*const originalPush = router.push;
+router.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err);
 }*/
+
 
 
 const router = createRouter({
