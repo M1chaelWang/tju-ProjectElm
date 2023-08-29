@@ -5,7 +5,7 @@
 			<div class="icon-location-box">
 				<div class="icon-location"></div>
 			</div>
-			<div class="location-text">沈阳市规划大厦<i class="fa fa-caret-down"></i></div>
+			<div class="location-text">天津大学智能与计算学部<i class="fa fa-caret-down"></i></div>
 		</header>
 		<!-- search部分 -->
 		<!--搜索框部分（此块与search-fixed-top块宽度高度一致，用于当

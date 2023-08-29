@@ -391,14 +391,14 @@ export default {
 			//获取顶部固定块
 			let search = this.$refs.fixedBox;
 
-			/*//判断滚动条超过视口宽度的12%时，搜索块变固定定位
+			//判断滚动条超过视口宽度的12%时，搜索块变固定定位
 			if (scroll > width * 0.12) {
-				search.style.position = 'fixed';
-				search.style.left = '0';
-				search.style.top = '0';
+				this.$refs.search = 'fixed';
+				/*search.style.left = '0';
+				search.style.top = '0';*/
 			} else {
-				search.style.position = 'static';
-			}*/
+				this.$refs.search = 'static';
+			}
 		}
 	},
 	destroyed() {
