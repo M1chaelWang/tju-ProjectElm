@@ -103,7 +103,7 @@ public class OrdersDaoImpl implements OrdersDao {
 				orders.setOrderTotal(rs.getDouble("orderTotal"));
 				orders.setDaId(rs.getInt("daId"));
 				orders.setOrderState(rs.getInt("orderState"));
-
+				
 				Business business = new Business();
 				business.setBusinessId(rs.getInt("bbusinessId"));
 				business.setBusinessName(rs.getString("bbusinessName"));

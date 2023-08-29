@@ -37,12 +37,12 @@ router.beforeEach(function (to, from, next) {
         (to.path == '/' || to.path == '/index' || to.path == '/businessList' || to.path == '/businessInfo' || to.path == '/login' || to.path == '/register')) {
         if (user == null) {
             router.push('/login');
-            location.reload();
+            // location.reload();
         }
     }
     next();
 });
 app.use(router)
-app.use(table)
+// app.use(table)
 
-app.mount("#app");
+// app.mount("#app");

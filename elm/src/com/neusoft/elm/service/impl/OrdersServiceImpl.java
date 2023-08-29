@@ -111,8 +111,7 @@ public class OrdersServiceImpl implements OrdersService {
 			 
 			 //2、查询多个订单的订单明细信息
 			 for(Orders o : list) {
-				 List<OrderDetailet> odList =
-				 orderDetailetDao.listOrderDetailetByOrderId(o.getOrderId());
+				 List<OrderDetailet> odList = orderDetailetDao.listOrderDetailetByOrderId(o.getOrderId());
 				 o.setList(odList);
 			 }
 			 

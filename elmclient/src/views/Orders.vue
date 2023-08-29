@@ -262,7 +262,7 @@
 		flex: 2;
 		background-color: #505051;
 		color: #fff;
-		font-sizi: 4.5vw;
+		font-size: 4.5vw;
 		font-weight: 700;
 		user-select: none;
 

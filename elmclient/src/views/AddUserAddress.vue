@@ -11,8 +11,7 @@
 					联系人：
 				</div>
 				<div class="content">
-					<input type="text" v-model="deliveryAddress.contactName" placeholder="联系人
-姓名">
+					<input type="text" v-model="deliveryAddress.contactName" placeholder="联系人姓名">
 				</div>
 			</li>
 			<li>
