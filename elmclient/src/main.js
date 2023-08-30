@@ -6,6 +6,7 @@ import router from './router'
 import 'font-awesome/css/font-awesome.min.css'
 import axios from 'axios'
 import qs from 'qs'
+import Decimal from "decimal.js"
 import {
     getCurDate,
     setSessionStorage,

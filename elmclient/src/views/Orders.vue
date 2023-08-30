@@ -25,7 +25,7 @@
 					<img :src="item.food.foodImg">
 					<p>{{item.food.foodName}} x {{item.quantity}}</p>
 				</div>
-				<p>&#165;{{item.food.foodPrice*item.quantity}}</p>
+				<p>&#165;{{(item.food.foodPrice*item.quantity).toFixed(2)}}</p>
 			</li>
 		</ul>
 		<div class="order-deliveryfee">
@@ -54,7 +54,7 @@
 				business: {},
 				user: {},
 				cartArr: [],
-				diliveryaddress:{}
+				deliveryaddress:{}
 			}
 		},
 		created() {
@@ -86,7 +86,7 @@
 					totalPrice += cartItem.food.foodPrice * cartItem.quantity;
 				}
 				totalPrice += this.business.deliveryPrice;
-				return totalPrice;
+				return totalPrice.toFixed(2);
 			}
 		},
 		filters:{

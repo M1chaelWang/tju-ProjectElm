@@ -219,9 +219,9 @@
 			totalPrice() {
 				let total = 0;
 				for (let item of this.foodArr) {
-					total += item.foodPrice * item.quantity;
+					total = total + item.foodPrice * item.quantity;
 				}
-				return total;
+				return total.toFixed(2);
 			},
 			//食品总数量
 			totalQuantity() {
@@ -233,7 +233,9 @@
 			},
 			//食品结算总价格
 			totalSettle() {
-				return this.totalPrice + this.business.deliveryPrice;
+				let res = 0;
+				res = parseFloat(this.totalPrice + this.business.deliveryPrice);
+				return res.toFixed(2);
 			}
 		}
 	}
@@ -301,7 +303,7 @@
 	/********食品列表********/
 	.wrapper .food {
 		width: 100%;
-		margin-bottom: 14vw;
+		padding-bottom: 14vw;
 	}
 
 	.wrapper .food li {

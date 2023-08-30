@@ -88,6 +88,10 @@
 					alert('手机号码不能为空！');
 					return;
 				}
+				if ((this.user.userId.length != 11) || (this.user.userId.startsWith('1') == false)) {
+					alert('手机号码格式错误！');
+					return;
+				}
 				if (this.user.password == '') {
 					alert('密码不能为空！');
 					return;

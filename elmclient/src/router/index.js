@@ -10,6 +10,8 @@ import OrderList from '../views/OrderList.vue'
 import AddUserAddress from '../views/AddUserAddress.vue'
 import EditUserAddress from '../views/EditUserAddress.vue'
 import Register from '../views/Register.vue'
+import ZfbPay from '../views/ZfbPay.vue'
+import WechatPay from '../views/WechatPay.vue'
 const routes = [{
   path: '/',
   name: 'Home',
@@ -66,6 +68,16 @@ const routes = [{
   path: '/register',
   name: 'Register',
   component: Register
+},
+{
+  path: '/zfbpay',
+  name: 'ZfbPay',
+  component: ZfbPay
+},
+{
+  path: '/wechatpay',
+  name: 'WechatPay',
+  component: WechatPay
 }
 ]
 //解决重复路由报异常问题
