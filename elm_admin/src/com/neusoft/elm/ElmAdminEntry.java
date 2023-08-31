@@ -3,7 +3,6 @@ package com.neusoft.elm;
 import java.util.Scanner;
 
 import com.neusoft.elm.po.Admin;
-import com.neusoft.elm.po.Business;
 import com.neusoft.elm.view.AdminView;
 import com.neusoft.elm.view.BusinessView;
 import com.neusoft.elm.view.impl.AdminViewImpl;

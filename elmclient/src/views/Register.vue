@@ -88,7 +88,7 @@
 					alert('手机号码不能为空！');
 					return;
 				}
-				if ((this.user.userId.length != 11) || (this.user.userId.startsWith('1') == false)) {
+				if (this.checkPhoneNumber() == false) {
 					alert('手机号码格式错误！');
 					return;
 				}
@@ -117,6 +117,15 @@
 				}).catch(error => {
 					console.error(error);
 				});
+			},
+			checkPhoneNumber() {
+				if ((this.user.userId.length != 11) || (this.user.userId.startsWith('1') == false)) 
+					return false;
+				for (var i = 0; i < 11; i++) {
+					if (this.user.userId.charAt(i) < '0' || this.user.userId.charAt(i) > '9')
+						return false;
+				}
+				return true;
 			}
 		},
 		components: {
