@@ -46,7 +46,7 @@
 			</li>
 		</ul>
 		<div class="payment-button">
-			<button>确认支付</button>
+			<button @click="toQR">确认支付</button>
 		</div>
 
 		<!-- 底部菜单部分 -->
@@ -96,6 +96,14 @@
 			},
 			alipay(n){
 				this.isalipay = n;
+			},
+			toQR(){
+				if (this.isalipay == true) {
+					this.$router.push({path: '/zfbpay'});
+				}
+				else {
+					this.$router.push({path: '/wechatpay'});
+				}
 			}
 		},
 		components: {
@@ -191,7 +199,7 @@
 	}
 
 	.wrapper .payment-type li img {
-		width: 8.1vw;
+		width: 33vw;
 		height: 8.1vw;
 	}
 

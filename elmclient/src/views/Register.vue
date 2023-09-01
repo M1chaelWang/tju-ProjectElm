@@ -72,7 +72,7 @@
 		},
 		methods: {
 			checkUserId() {
-				this.$axios.post('UserControler/getUserById', this.$qs.stringify({
+				this.$axios.post('UserController/getUserById', this.$qs.stringify({
 					userId: this.user.userId,
 				})).then(response => {
 					if (response.data == 1) {
@@ -88,6 +88,10 @@
 					alert('手机号码不能为空！');
 					return;
 				}
+				if (this.checkPhoneNumber() == false) {
+					alert('手机号码格式错误！');
+					return;
+				}
 				if (this.user.password == '') {
 					alert('密码不能为空！');
 					return;
@@ -101,7 +105,7 @@
 					return;
 				}
 				//注册请求
-				this.$axios.post('UserControler/saveUser', this.$qs.stringify(
+				this.$axios.post('UserController/saveUser', this.$qs.stringify(
 					this.user
 				)).then(response => {
 					if (response.data > 0) {
@@ -113,6 +117,15 @@
 				}).catch(error => {
 					console.error(error);
 				});
+			},
+			checkPhoneNumber() {
+				if ((this.user.userId.length != 11) || (this.user.userId.startsWith('1') == false)) 
+					return false;
+				for (var i = 0; i < 11; i++) {
+					if (this.user.userId.charAt(i) < '0' || this.user.userId.charAt(i) > '9')
+						return false;
+				}
+				return true;
 			}
 		},
 		components: {

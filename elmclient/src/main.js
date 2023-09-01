@@ -6,6 +6,7 @@ import router from './router'
 import 'font-awesome/css/font-awesome.min.css'
 import axios from 'axios'
 import qs from 'qs'
+import Decimal from "decimal.js"
 import {
     getCurDate,
     setSessionStorage,
@@ -19,7 +20,7 @@ const app =createApp(App)
 app.config.productionTip = false
 app.use(router).mount('#app')
 //设置axios的基础url部分
-axios.defaults.baseURL = 'https://localhost:8080/elm/';
+axios.defaults.baseURL = 'http://localhost:8080/elm/';
 //将axios挂载到vue实例上，使用时就可以 this.$axios 这样使用了
 app.config.globalProperties.$axios = axios;
 app.config.globalProperties.$qs = qs;
@@ -34,15 +35,15 @@ router.beforeEach(function (to, from, next) {
     let user = sessionStorage.getItem('user');
     //除了登录、注册、首页、商家列表、商家信息之外，都需要判断是否登录
     if (!
-        (to.path == '/' || to.path == '/index' || to.path == '/businessList' || to.path == '/businessInfo' || to.path == '/login' || to.path == '/rRegister')) {
+        (to.path == '/' || to.path == '/index' || to.path == '/businessList' || to.path == '/businessInfo' || to.path == '/login' || to.path == '/register')) {
         if (user == null) {
             router.push('/login');
-            location.reload();
+            // location.reload();
         }
     }
     next();
 });
 app.use(router)
-app.use(table)
+// app.use(table)
 
-app.mount("#app");
+// app.mount("#app");

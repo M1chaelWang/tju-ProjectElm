@@ -56,7 +56,7 @@
 				}
 
 				//登录请求
-				this.$axios.post('UserControler/getUserByIdByPass', this.$qs.stringify({
+				this.$axios.post('UserController/getUserByIdByPass', this.$qs.stringify({
 					userId: this.userId,
 					password: this.password
 				})).then(response => {
