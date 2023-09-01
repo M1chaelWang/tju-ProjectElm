@@ -19,7 +19,6 @@ public class DBUtil {
             Class.forName(DRIVER);
             con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return con;
@@ -31,7 +30,6 @@ public class DBUtil {
             try {
                 rs.close();
             } catch (SQLException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             rs = null;
@@ -40,7 +38,6 @@ public class DBUtil {
             try {
                 pst.close();
             } catch (SQLException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             pst = null;
@@ -49,7 +46,6 @@ public class DBUtil {
             try {
                 con.close();
             } catch (SQLException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             con = null;
