@@ -8,7 +8,7 @@ import com.neusoft.elmboot.po.User;
 import com.neusoft.elmboot.service.UserService;
 
 @RestController
-@RequestMapping("/UserControler")
+@RequestMapping("/UserController")
 public class UserController {
 	@Autowired
 	private UserService userService;
