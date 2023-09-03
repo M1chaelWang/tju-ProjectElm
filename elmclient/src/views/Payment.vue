@@ -104,6 +104,11 @@
 				else {
 					this.$router.push({path: '/wechatpay'});
 				}
+				this.$axios
+        		.post( "OrdersController/updateOrderStateById", this.$qs.stringify({orderId:this.orderId}))
+        		.catch((error) => {
+          			console.error(error);
+        		});
 			}
 		},
 		components: {
