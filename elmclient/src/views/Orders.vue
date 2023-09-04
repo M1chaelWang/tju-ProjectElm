@@ -114,7 +114,6 @@
 					let orderId = response.data;
 					if(orderId>0){
 						this.$router.push({path:'/payment',query:{orderId:orderId}});
-						console.log(orderId);
 					}else{
 						alert('创建订单失败!');
 					}

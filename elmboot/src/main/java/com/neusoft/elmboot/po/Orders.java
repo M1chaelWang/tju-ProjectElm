@@ -8,9 +8,8 @@ public class Orders {
 	private Integer businessId;
 	private String orderDate;
 	private Double orderTotal;
-	private Integer daId; 
-	private Integer orderState; 
-
+	private Integer daId;
+	private Integer orderState;
 
 	private Business business;
 
@@ -20,7 +19,6 @@ public class Orders {
 		return orderId;
 	}
 
-	
 	public void setBusinessId(Integer businessId) {
 		this.businessId = businessId;
 	}
@@ -45,8 +43,6 @@ public class Orders {
 		return daId;
 	}
 
-	
-
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
@@ -55,7 +51,6 @@ public class Orders {
 		return businessId;
 	}
 
-
 	public Integer getOrderState() {
 		return orderState;
 	}
@@ -63,10 +58,11 @@ public class Orders {
 	public void setOrderState(Integer orderState) {
 		this.orderState = orderState;
 	}
-	
+
 	public void setDaId(Integer daId) {
 		this.daId = daId;
 	}
+
 	public void setOrderId(Integer orderId) {
 		this.orderId = orderId;
 	}
@@ -90,5 +86,5 @@ public class Orders {
 	public void setList(List<OrderDetailet> list) {
 		this.list = list;
 	}
-	
+
 }

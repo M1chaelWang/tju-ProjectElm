@@ -23,7 +23,9 @@
         <ul class="order-detailet" v-show="item.isShowDetailet">
           <li v-for="odItem in item.list">
             <p>{{ odItem.food.foodName }} x {{ odItem.quantity }}</p>
-            <p>&#165;{{ (odItem.food.foodPrice * odItem.quantity).toFixed(2) }}</p>
+            <p>
+              &#165;{{ (odItem.food.foodPrice * odItem.quantity).toFixed(2) }}
+            </p>
           </li>
           <li>
             <p>配送费</p>
@@ -67,7 +69,7 @@ export default {
   data() {
     return {
       orderArr: [],
-      user: {}
+      user: {},
     };
   },
   created() {
@@ -95,7 +97,7 @@ export default {
       orders.isShowDetailet = !orders.isShowDetailet;
     },
     toPayment(item) {
-      this.$router.push({path:'/payment', query: {orderId:item.orderId}})
+      this.$router.push({ path: "/payment", query: { orderId: item.orderId } });
     },
   },
   components: {
@@ -138,6 +140,7 @@ export default {
 
 .wrapper .order {
   width: 100%;
+  padding-bottom: 14vw;
 }
 
 .wrapper .order li {

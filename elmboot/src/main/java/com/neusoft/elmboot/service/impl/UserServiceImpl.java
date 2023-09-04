@@ -28,4 +28,13 @@ public class UserServiceImpl implements UserService {
 		return userMapper.saveUser(user);
 	}
 
+	@Override
+	public void updateTotalPoints(String userId, Integer totalPoints) {
+		userMapper.updateTotalPoints(userId, totalPoints);
+	}
+
+	@Override
+	public int getTotalPoints(String userId) {
+		return userMapper.getTotalPoints(userId);
+	}
 }

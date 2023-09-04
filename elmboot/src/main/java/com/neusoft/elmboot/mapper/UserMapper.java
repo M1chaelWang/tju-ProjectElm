@@ -3,6 +3,7 @@ package com.neusoft.elmboot.mapper;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import com.neusoft.elmboot.po.User;
 
 @Mapper
@@ -15,4 +16,10 @@ public interface UserMapper {
 
     @Insert("insert into user values(#{userId},#{password},#{userName},#{userSex},null,1)")
     public int saveUser(User user);
+
+    @Update("update user set totalPoints=totalPoints + #{totalPoints} where userId=#{userId}")
+    public void updateTotalPoints(String userId, Integer totalPoints);
+
+    @Select("select totalPoints from user where userId=#{userId}")
+    public int getTotalPoints(String userId);
 }

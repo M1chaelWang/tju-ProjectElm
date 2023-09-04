@@ -28,4 +28,13 @@ public class UserController {
 		return userService.saveUser(user);
 	}
 
+	@RequestMapping("/updateTotalPoints")
+	public void updateTotalPoints(String userId, Integer totalPoints) throws Exception {
+		userService.updateTotalPoints(userId, totalPoints);
+	}
+
+	@RequestMapping("/getTotalPoints")
+	public int getTotalPoints(String userId) throws Exception {
+		return userService.getTotalPoints(userId);
+	}
 }
