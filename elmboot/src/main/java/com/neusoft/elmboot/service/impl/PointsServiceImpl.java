@@ -23,13 +23,13 @@ public class PointsServiceImpl implements PointsService{
     }
 
     @Override
-    public int updatePoints(String userId, Integer point) {
-        return pointsMapper.updatePoints(userId, point);
+    public void updatePoints(Integer pointId, Integer point)  {
+        pointsMapper.updatePoints(pointId, point);
     }
 
     @Override
-    public int removePoints(Integer pointId) {
-        return pointsMapper.removePoints(pointId);
+    public void removePoints(Integer pointId) {
+        pointsMapper.removePoints(pointId);
     }
     
 }

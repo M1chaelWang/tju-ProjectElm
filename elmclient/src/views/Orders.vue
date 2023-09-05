@@ -13,7 +13,7 @@
 				<p>{{deliveryaddress!=null?deliveryaddress.address:'请选择收货地址'}}</p>
 				<i class="fa fa-angle-right"></i>
 			</div>
-			<p>{{user.userName}}{{user.userSex | sexFilter}} {{user.userId}}</p>
+			<p>{{user.userName}}{{sexFilter(user.userSex)}} {{user.userId}}</p>
 		</div>
 
 		<h3>{{business.businessName}}</h3>
@@ -89,12 +89,10 @@
 				return totalPrice.toFixed(2);
 			}
 		},
-		filters:{
+		methods:{
 			sexFilter(value){
 				return value==1?"先生":"女士";
-			}
-		},
-		methods:{
+			},
 			toUserAddress(){
 				this.$router.push({path:'/userAddress',query:{businessId:this.businessId}})
 			},

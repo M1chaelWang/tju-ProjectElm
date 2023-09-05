@@ -5,6 +5,7 @@ public class Points {
     private String userId;
     private Integer point;
     private String date;
+    private Integer valid;
 
     public Integer getPointId() {
         return pointId;
@@ -22,6 +23,10 @@ public class Points {
         return date;
     }
 
+    public int getValid() {
+        return valid;
+    }
+
     public void setPointId(Integer pointId) {
         this.pointId = pointId;
     }
@@ -36,5 +41,9 @@ public class Points {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public void setValid(Integer valid) {
+        this.valid = valid;
     }
 }

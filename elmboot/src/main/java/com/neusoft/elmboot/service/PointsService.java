@@ -9,8 +9,8 @@ public interface PointsService {
 
     public int savePoints(Points points);
 
-    public int updatePoints(String userId, Integer point);
+    public void updatePoints(Integer pointId, Integer point);
 
-    public int removePoints(Integer pointId);
+    public void removePoints(Integer pointId);
 
 }

@@ -26,13 +26,13 @@ public class PointsController {
     }
 
     @RequestMapping("/updatePoints")
-    public int updatePoints(Points points) throws Exception {
-        return pointsService.updatePoints(points.getUserId(), points.getPoint());
+    public void updatePoints(Integer pointId, Integer point) throws Exception {
+        pointsService.updatePoints(pointId, point);
     }
 
     @RequestMapping("/removePoints")
-    public int removePoints(Points points) throws Exception {
-        return pointsService.removePoints(points.getPointId());
+    public void removePoints(Points points) throws Exception {
+        pointsService.removePoints(points.getPointId());
     }
 
 }

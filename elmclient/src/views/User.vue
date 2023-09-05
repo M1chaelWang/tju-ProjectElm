@@ -15,7 +15,7 @@
                     <div class="member-state"><i class="fa fa-lock" />未成为会员</div>
                     <div class="member-info">下单获增吃货豆，豆兑万物更实惠。</div>
                 </div>
-                <div class="chd">
+                <div class="chd" @click="toExchange">
                     <p class="text">
                         吃货豆
                         <p class="points">{{ totalPoints }}</p>
@@ -114,6 +114,11 @@ export default {
         toAddress() {
 				this.$router.push({
 					path: '/userAddress'
+				});
+		},
+        toExchange() {
+				this.$router.push({
+					path: '/exchange'
 				});
 		},
     },

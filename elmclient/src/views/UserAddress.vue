@@ -10,7 +10,7 @@
 		<ul class="addresslist">
 			<li v-for="item in deliveryAddressArr">
 				<div class="addresslist-left" @click="setDeliveryAddress(item)">
-					<h3>{{item.contactName}}{{item.contactSex | sexFilter}} {{item.contactTel}}</h3>
+					<h3>{{item.contactName}}{{this.sexFilter(item.contactSex)}} {{item.contactTel}}</h3>
 					<p>{{item.address}}</p>
 				</div>
 				<div class="addresslist-right">
@@ -51,12 +51,10 @@
 		components: {
 			Footer
 		},
-		filters: {
+		methods: {
 			sexFilter(value) {
 				return value == 1 ? "先生" : "女士";
-			}
-		},
-		methods: {
+			},
 			listDeliveryAddressByUserId(){
 				//查询送货地址
 				this.$axios.post('DeliveryAddressController/listDeliveryAddressByUserId', this.$qs.stringify({

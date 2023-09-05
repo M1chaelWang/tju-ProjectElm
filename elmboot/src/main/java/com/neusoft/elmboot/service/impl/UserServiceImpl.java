@@ -37,4 +37,9 @@ public class UserServiceImpl implements UserService {
 	public int getTotalPoints(String userId) {
 		return userMapper.getTotalPoints(userId);
 	}
+
+	@Override
+	public void subTotalPoints(String userId, Integer totalPoints) {
+		userMapper.subTotalPoints(userId, totalPoints);
+	}
 }

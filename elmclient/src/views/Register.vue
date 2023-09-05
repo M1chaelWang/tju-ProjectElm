@@ -121,10 +121,8 @@
 			checkPhoneNumber() {
 				if ((this.user.userId.length != 11) || (this.user.userId.startsWith('1') == false)) 
 					return false;
-				for (var i = 0; i < 11; i++) {
-					if (this.user.userId.charAt(i) < '0' || this.user.userId.charAt(i) > '9')
-						return false;
-				}
+				if(!(/^1(3|4|5|6|7|8|9)d{9}$/.test(phone)))
+					return false;
 				return true;
 			}
 		},

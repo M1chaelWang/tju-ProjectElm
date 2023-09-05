@@ -12,4 +12,6 @@ public interface UserService {
 	public void updateTotalPoints(String userId, Integer totalPoints);
 
 	public int getTotalPoints(String userId);
+
+	public void subTotalPoints(String userId, Integer totalPoints);
 }

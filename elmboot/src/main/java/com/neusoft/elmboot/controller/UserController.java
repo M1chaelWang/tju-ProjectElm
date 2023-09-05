@@ -37,4 +37,9 @@ public class UserController {
 	public int getTotalPoints(String userId) throws Exception {
 		return userService.getTotalPoints(userId);
 	}
+
+	@RequestMapping("/subTotalPoints")
+	public void subTotalPoints(String userId, Integer totalPoints) throws Exception {
+		userService.subTotalPoints(userId, totalPoints);
+	}
 }

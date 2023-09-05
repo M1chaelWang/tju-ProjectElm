@@ -164,7 +164,6 @@ export default {
             this.pointDetail.userId = this.user.userId;
             this.pointDetail.point = this.orders.orderTotal * 100;
             this.pointDetail.date = strDate;
-			console.log(strDate);
             this.$axios
                 .post(
                     "PointsController/savePoints",

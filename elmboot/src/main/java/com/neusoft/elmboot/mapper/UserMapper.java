@@ -22,4 +22,7 @@ public interface UserMapper {
 
     @Select("select totalPoints from user where userId=#{userId}")
     public int getTotalPoints(String userId);
+
+    @Update("update user set totalPoints=totalPoints - #{totalPoints} where userId=#{userId}")
+    public void subTotalPoints(String userId, Integer totalPoints);
 }
