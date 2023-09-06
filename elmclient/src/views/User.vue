@@ -12,14 +12,18 @@
 
             <div class="user-points">
                 <div class="member">
-                    <div class="member-state"><i class="fa fa-lock" />未成为会员</div>
-                    <div class="member-info">下单获增吃货豆，豆兑万物更实惠。</div>
+                    <div class="member-state">
+                        <i class="fa fa-lock" />未成为会员
+                    </div>
+                    <div class="member-info">
+                        下单获增吃货豆，豆兑万物更实惠。
+                    </div>
                 </div>
                 <div class="chd" @click="toExchange">
-                    <p class="text">
-                        吃货豆
-                        <p class="points">{{ totalPoints }}</p>
-                    </p>
+                    <div class="chd-fixed">
+                        <p class="text">吃货豆</p>
+                        <span class="points">{{ currentValue }}</span>
+                    </div>
                 </div>
             </div>
 
@@ -34,7 +38,7 @@
         </div>
 
         <div class="tools">
-        <p class="tools-title">常见工具</p>
+            <p class="tools-title">常见工具</p>
             <ul>
                 <li @click="toAddress">
                     <i class="fa fa-map-marker" />
@@ -42,7 +46,7 @@
                 </li>
                 <li>
                     <i class="fa fa-headphones" />
-                   <p>我的客服</p>
+                    <p>我的客服</p>
                 </li>
                 <li>
                     <i class="fa fa-heart-o" />
@@ -62,13 +66,12 @@
                 </li>
                 <li @click="toOrderList">
                     <i class="fa fa-file-text-o" />
-                <p>我的账单</p>
+                    <p>我的账单</p>
                 </li>
                 <li>
                     <i class="fa fa-commenting-o" />
                     <p>消息中心</p>
                 </li>
-            
             </ul>
         </div>
 
@@ -84,6 +87,9 @@ export default {
         return {
             user: {},
             totalPoints: 0,
+            currentValue: 0,
+            targetValue: 0,
+            animationDuration: 4000,
         };
     },
     created() {
@@ -91,6 +97,18 @@ export default {
         this.loadTotalPoints();
     },
     methods: {
+        updateNumber() {
+            const step = Math.floor(this.targetValue / (this.animationDuration / 100));
+            const update = () => {
+                this.currentValue += step;
+                if (this.currentValue < this.targetValue) {
+                    requestAnimationFrame(update);
+                } else {
+                    this.currentValue = this.targetValue;
+                }
+            };
+            update();
+        },
         loadTotalPoints() {
             this.$axios
                 .post(
@@ -101,26 +119,28 @@ export default {
                 )
                 .then((response) => {
                     this.totalPoints = response.data;
+                    this.targetValue = response.data;
+                    this.updateNumber();
                 })
                 .catch((error) => {
                     console.error(error);
                 });
         },
         toOrderList() {
-				this.$router.push({
-					path: '/orderList'
-				});
-		},
+            this.$router.push({
+                path: "/orderList",
+            });
+        },
         toAddress() {
-				this.$router.push({
-					path: '/userAddress'
-				});
-		},
+            this.$router.push({
+                path: "/userAddress",
+            });
+        },
         toExchange() {
-				this.$router.push({
-					path: '/exchange'
-				});
-		},
+            this.$router.push({
+                path: "/exchange",
+            });
+        },
     },
     components: {
         Footer,
@@ -195,7 +215,7 @@ export default {
     padding-top: 2vw;
     padding-bottom: 2vw;
 }
-.wrapper .user .user-points .member .member-state{
+.wrapper .user .user-points .member .member-state {
     background-color: #e0e0e0;
     padding: 1vw;
     margin-bottom: 3vw;
@@ -208,21 +228,25 @@ export default {
 .wrapper .user .user-points .member .member-state i {
     padding-right: 1vw;
 }
-.wrapper .user .user-points .member .member-info{
+.wrapper .user .user-points .member .member-info {
     font-size: 3vw;
     color: #8b91a3;
 }
 .wrapper .user .user-points .chd {
+    width: 20%;
+}
+.wrapper .user .user-points .chd-fixed {
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-.wrapper .user .user-points .chd .text {
+.wrapper .user .user-points .chd-fixed .text {
     font-size: 3vw;
     color: #8b91a3;
 }
-.wrapper .user .user-points .chd .points {
+.wrapper .user .user-points .chd-fixed .points {
     font-size: 6vw;
     color: #b9bece;
 }
@@ -274,8 +298,6 @@ export default {
     padding-top: 2vw;
     padding-bottom: 2vw;
     background-color: #ffffff;
-
-
 }
 .wrapper .tools .tools-title {
     font-size: 5vw;
@@ -311,5 +333,13 @@ export default {
 .wrapper .tools li p {
     font-size: 3.2vw;
     color: #666;
+}
+@keyframes countUp {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 </style>
