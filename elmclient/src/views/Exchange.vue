@@ -413,6 +413,8 @@ export default {
 
                 let tempTotalPrice = this.totalPrice;
                 for (let i = 0; i < this.pointsArr.length; i++) {
+                    if (this.pointsArr[i].valid == 0)
+                        continue;
                     tempTotalPrice -= this.pointsArr[i].point;
                     if (tempTotalPrice >= 0) {
                         this.$axios

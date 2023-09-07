@@ -31,8 +31,8 @@ public class PointsController {
     }
 
     @RequestMapping("/removePoints")
-    public void removePoints(Points points) throws Exception {
-        pointsService.removePoints(points.getPointId());
+    public void removePoints(Integer pointId) throws Exception {
+        pointsService.removePoints(pointId);
     }
 
 }
