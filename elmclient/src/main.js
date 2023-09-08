@@ -19,6 +19,7 @@ const app =createApp(App)
 app.config.productionTip = false
 app.use(router).mount('#app')
 //设置axios的基础url部分
+// axios.defaults.baseURL = 'http://192.168.1.110:8080/elm/';
 axios.defaults.baseURL = 'http://localhost:8080/elm/';
 //将axios挂载到vue实例上，使用时就可以 this.$axios 这样使用了
 app.config.globalProperties.$axios = axios;

@@ -35,48 +35,48 @@
                 </div>
                 <div class="right">立即开通 &gt;</div>
             </div>
-        </div>
 
-        <div class="tools">
-            <p class="tools-title">常见工具</p>
-            <ul>
-                <li @click="toAddress">
-                    <i class="fa fa-map-marker" />
-                    <p>我的地址</p>
-                </li>
-                <li>
-                    <i class="fa fa-headphones" />
-                    <p>我的客服</p>
-                </li>
-                <li>
-                    <i class="fa fa-heart-o" />
-                    <p>店铺关注</p>
-                </li>
-                <li>
-                    <i class="fa fa-star-o" />
-                    <p>评价有礼</p>
-                </li>
-                <li>
-                    <i class="fa fa-exclamation-circle" />
-                    <p>用户协议</p>
-                </li>
-                <li>
-                    <i class="fa fa-eye-slash" />
-                    <p>隐私政策</p>
-                </li>
-                <li @click="toOrderList">
-                    <i class="fa fa-file-text-o" />
-                    <p>我的账单</p>
-                </li>
-                <li>
-                    <i class="fa fa-commenting-o" />
-                    <p>消息中心</p>
-                </li>
-            </ul>
-        </div>
+            <div class="tools">
+                <p class="tools-title">常见工具</p>
+                <ul>
+                    <li @click="toAddress">
+                        <i class="fa fa-map-marker" />
+                        <p>我的地址</p>
+                    </li>
+                    <li>
+                        <i class="fa fa-headphones" />
+                        <p>我的客服</p>
+                    </li>
+                    <li>
+                        <i class="fa fa-heart-o" />
+                        <p>店铺关注</p>
+                    </li>
+                    <li>
+                        <i class="fa fa-star-o" />
+                        <p>评价有礼</p>
+                    </li>
+                    <li>
+                        <i class="fa fa-exclamation-circle" />
+                        <p>用户协议</p>
+                    </li>
+                    <li>
+                        <i class="fa fa-eye-slash" />
+                        <p>隐私政策</p>
+                    </li>
+                    <li @click="toOrderList">
+                        <i class="fa fa-file-text-o" />
+                        <p>我的账单</p>
+                    </li>
+                    <li>
+                        <i class="fa fa-commenting-o" />
+                        <p>消息中心</p>
+                    </li>
+                </ul>
+            </div>
 
-        <div class="quit">
-            <p @click="quit">退出登录</p>
+            <div class="quit">
+                <p @click="quit">退出登录</p>
+            </div>
         </div>
         <Footer></Footer>
     </div>
@@ -173,10 +173,14 @@ export default {
                     // 年
                     this.pointArr[i].date.substring(0, 4),
                     // 月
-                    (parseInt(this.pointArr[i].date.substring(
-                        this.pointArr[i].date.indexOf("/") + 1,
-                        this.pointArr[i].date.lastIndexOf("/")
-                    )) - 1).toString(),
+                    (
+                        parseInt(
+                            this.pointArr[i].date.substring(
+                                this.pointArr[i].date.indexOf("/") + 1,
+                                this.pointArr[i].date.lastIndexOf("/")
+                            )
+                        ) - 1
+                    ).toString(),
                     // 日
                     this.pointArr[i].date.substring(
                         this.pointArr[i].date.lastIndexOf("/") + 1,
@@ -198,7 +202,7 @@ export default {
                         this.pointArr[i].date.length
                     )
                 );
-                
+
                 const timeDifference = currentTime - givenTime;
                 const minutesDifference = timeDifference / (1000 * 60);
                 if (minutesDifference >= 2) {
@@ -246,7 +250,7 @@ export default {
                 path: "/index",
             });
             sessionStorage.clear();
-        }
+        },
     },
     components: {
         Footer,
@@ -278,6 +282,7 @@ export default {
 .wrapper .user {
     width: 100%;
     padding-top: 12vw;
+    padding-bottom: 14vw;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
