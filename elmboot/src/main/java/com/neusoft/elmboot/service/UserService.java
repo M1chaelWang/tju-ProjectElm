@@ -8,4 +8,10 @@ public interface UserService {
 	public int saveUser(User user);
 	
 	public int getUserById(String userId);
+
+	public void updateTotalPoints(String userId, Integer totalPoints);
+
+	public int getTotalPoints(String userId);
+
+	public void subTotalPoints(String userId, Integer totalPoints);
 }
