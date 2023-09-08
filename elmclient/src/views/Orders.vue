@@ -32,6 +32,18 @@
 			<p>配送费</p>
 			<p>&#165;{{business.deliveryPrice}}</p>
 		</div>
+		<div class="order-deliverytime">
+			<div v-if="pythonResult !== null">
+				<p class="time">预计送餐时间：{{ pythonResult }} 分钟</p>
+				<p class="distance">骑手距离：{{ this.distance.toFixed(2) }} km</p>
+				<p class="rating">骑手评分：{{ this.deliveryperson.rating }}</p>
+				<div class="peak">
+					<p v-if="this.isPeak() == 1">当前处于送餐高峰期</p>
+					<p v-else>当前不处于送餐高峰期</p>
+				</div>
+			</div>
+    		<p v-else>送餐时间计算中...请稍等</p>
+		</div>
 
 		<!-- 订单合计部分 -->
 		<div class="total">
@@ -54,7 +66,10 @@
 				business: {},
 				user: {},
 				cartArr: [],
-				deliveryaddress:{}
+				deliveryaddress:{},
+				deliveryperson:{},
+				pythonResult: null,
+				distance: 0,
 			}
 		},
 		created() {
@@ -78,6 +93,8 @@
 			}).catch(error => {
 				console.error(error);
 			});
+
+			this.getDeliveryPersonById();
 		},
 		computed: {
 			totalPrice() {
@@ -118,7 +135,39 @@
 				}).catch(error => {
 					console.error(error);
 				});
-			}
+			},
+			
+			getDeliveryPersonById() {
+				this.$axios.post('DeliveryPersonController/getDeliveryPersonById', this.$qs.stringify({
+					personId: Math.round(Math.random()*(1-23)+23),
+				})).then(response => {
+					this.deliveryperson = response.data;
+					this.distance = Math.random()*(1-5)+5;
+					this.$axios.post('PythonController/callPythonScript', this.$qs.stringify({
+						age: this.deliveryperson.age,
+						rating: this.deliveryperson.rating,
+						distance: this.distance,
+						isPeak: this.isPeak(),
+					})).then(response => {
+						this.pythonResult = parseInt(response.data).toFixed(0);
+					}).catch(error => {
+						console.error(error);
+					});
+
+				}).catch(error => {
+					console.error(error);
+				});
+			},
+
+			isPeak() {
+  				const currentHour = new Date().getHours();
+  				if ((currentHour >= 8 && currentHour < 9) || (currentHour >= 11 && currentHour < 12) ||	(currentHour >= 17 && currentHour < 18)) {
+    				return 1;
+  				} 
+				else {
+    				return 0;
+  				}
+			}			
 		}
 	}
 </script>
@@ -241,6 +290,26 @@
 		justify-content: space-between;
 		align-items: center;
 		font-size: 3.5vw;
+	}
+
+	.wrapper .order-deliverytime {
+		width: 100%;
+		box-sizing: border-box;
+		padding: 3vw;
+		color: #666;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		font-size: 4.5vw;
+	}
+	.wrapper .order-deliverytime .time{
+		margin-bottom: 1vw;
+	}
+	.wrapper .order-deliverytime .distance{
+		margin-bottom: 1vw;
+	}
+	.wrapper .order-deliverytime .rating{
+		margin-bottom: 1vw;
 	}
 
 	/********** 订单合计部分 **********/

@@ -14,7 +14,7 @@ public interface UserMapper {
     @Select("select count(*) from user where userId=#{userId}")
     public int getUserById(String userId);
 
-    @Insert("insert into user values(#{userId},#{password},#{userName},#{userSex},null,1)")
+    @Insert("insert into user values(#{userId},#{password},#{userName},#{userSex},null,1,0)")
     public int saveUser(User user);
 
     @Update("update user set totalPoints=totalPoints + #{totalPoints} where userId=#{userId}")

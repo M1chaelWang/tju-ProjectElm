@@ -75,6 +75,9 @@
             </ul>
         </div>
 
+        <div class="quit">
+            <p @click="quit">退出登录</p>
+        </div>
         <Footer></Footer>
     </div>
 </template>
@@ -198,7 +201,6 @@ export default {
                 
                 const timeDifference = currentTime - givenTime;
                 const minutesDifference = timeDifference / (1000 * 60);
-                console.log(minutesDifference);
                 if (minutesDifference >= 5) {
                     this.$axios
                         .post(
@@ -239,6 +241,12 @@ export default {
                 path: "/exchange",
             });
         },
+        quit() {
+            this.$router.push({
+                path: "/index",
+            });
+            sessionStorage.clear();
+        }
     },
     components: {
         Footer,
@@ -251,7 +259,7 @@ export default {
     width: 100%;
     height: 100%;
     user-select: none;
-    background-color: #f5f5f5;
+    background-color: #f0f0f0;
 }
 .wrapper header {
     width: 100%;
@@ -431,6 +439,19 @@ export default {
 .wrapper .tools li p {
     font-size: 3.2vw;
     color: #666;
+}
+.wrapper .quit {
+    width: 95%;
+    margin: 0 auto;
+    height: 11.5vw;
+    background-color: #f05858;
+    margin-top: 1.3vw;
+    border-radius: 7px;
+    color: #fff;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 @keyframes countUp {
     from {
