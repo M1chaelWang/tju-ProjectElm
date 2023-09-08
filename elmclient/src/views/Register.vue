@@ -119,9 +119,8 @@
 				});
 			},
 			checkPhoneNumber() {
-				if ((this.user.userId.length != 11) || (this.user.userId.startsWith('1') == false)) 
-					return false;
-				return true;
+				var pattern = /^1[3456789]\d{9}$/;
+				return pattern.test(this.user.userId);
 			}
 		},
 		components: {
