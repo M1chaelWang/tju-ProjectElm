@@ -17,7 +17,7 @@ public class PythonController {
         String res = null;
         try {
             ProcessBuilder processBuilder = new ProcessBuilder("python",
-                    "D:\\project-summer-2023\\elmboot\\src\\main\\test.py", age.toString(), rating.toString(), distance.toString(), isPeak.toString());
+                    "D:\\project-summer-2023\\Mlearn\\ML.py", age.toString(), rating.toString(), distance.toString(), isPeak.toString());
             Process process = processBuilder.start();
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));

@@ -205,7 +205,7 @@ export default {
 
                 const timeDifference = currentTime - givenTime;
                 const minutesDifference = timeDifference / (1000 * 60);
-                if (minutesDifference >= 2) {
+                if (minutesDifference >= 1) {
                     this.$axios
                         .post(
                             "PointsController/removePoints",
