@@ -13,4 +13,7 @@ public interface PointsService {
 
     public void removePoints(Integer pointId);
 
+    public Boolean usePoints(String userId, Integer points);
+
+    public int sumValidPoint(String userId);
 }

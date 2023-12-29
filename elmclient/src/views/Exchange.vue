@@ -279,8 +279,8 @@ export default {
     name: "Exchange",
     data() {
         return {
+            user: {},
             totalQuantity: 0,
-            totalPoints: 0,
             quantity1: 0,
             quantity2: 0,
             quantity3: 0,
@@ -290,18 +290,17 @@ export default {
             quantity7: 0,
             quantity8: 0,
             pointsArr: [],
+            token: "",
+            config: {},
         };
     },
     created() {
         this.user = this.$getSessionStorage("user");
-        this.loadTotalPoints();
+        this.token = this.$getSessionStorage("token");
+        this.config = { headers: { token: this.token } };
+
         this.$axios
-            .post(
-                "PointsController/listPointsByOrderUserId",
-                this.$qs.stringify({
-                    userId: this.user.userId,
-                })
-            )
+            .get(`points/user/${this.user.userId}`, this.config)
             .then((response) => {
                 this.pointsArr = response.data;
             })
@@ -393,70 +392,19 @@ export default {
             }
         },
         exchange() {
-            if (this.totalPoints >= this.totalPrice) {
-                this.$axios
-                    .post(
-                        "UserController/subTotalPoints",
-                        this.$qs.stringify({
-                            userId: this.user.userId,
-                            totalPoints: this.totalPrice,
-                        })
-                    )
-                    .then(
-                        this.$router.push({
-                            path: "/Index",
-                        })
-                    )
-                    .catch((error) => {
-                        console.error(error);
-                    });
-
-                let tempTotalPrice = this.totalPrice;
-                for (let i = 0; i < this.pointsArr.length; i++) {
-                    if (this.pointsArr[i].valid == 0)
-                        continue;
-                    tempTotalPrice -= this.pointsArr[i].point;
-                    if (tempTotalPrice >= 0) {
-                        this.$axios
-                            .post(
-                                "PointsController/removePoints",
-                                this.$qs.stringify({
-                                    pointId: this.pointsArr[i].pointId,
-                                })
-                            )
-                            .catch((error) => {
-                                console.error(error);
-                            });
-                        if (tempTotalPrice == 0) break;
-                    } else {
-                        let res = -tempTotalPrice;
-                        this.$axios
-                            .post(
-                                "PointsController/updatePoints",
-                                this.$qs.stringify({
-                                    pointId: this.pointsArr[i].pointId,
-                                    point: res,
-                                })
-                            )
-                            .catch((error) => {
-                                console.error(error);
-                            });
-                    }
-                }
-            } else {
-                alert("您的积分不足！");
-            }
-        },
-        loadTotalPoints() {
+            console.log(this.totalPrice);
+            var params = { points: parseInt(this.totalPrice) };
             this.$axios
-                .post(
-                    "UserController/getTotalPoints",
-                    this.$qs.stringify({
-                        userId: this.user.userId,
-                    })
-                )
+                .get(`points/${this.user.userId}/usePoints`, {
+                    params: params,
+                    ...this.config,
+                })
                 .then((response) => {
-                    this.totalPoints = response.data;
+                    if (response.data == 0) alert("您的积分不足！");
+                    else {
+                        alert("兑换成功！");
+                        this.$router.go(-1);
+                    }
                 })
                 .catch((error) => {
                     console.error(error);

@@ -7,7 +7,6 @@ public class User {
 	private Integer userSex;
 	private String userImg;
 	private Integer delTag;
-	private Integer totalPoints;
 
 	public String getUserId() {
 		return userId;
@@ -45,11 +44,4 @@ public class User {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public Integer getTotalPoints() {
-		return totalPoints;
-	}
-	public void setTotalPoints(Integer totalPoints) {
-		this.totalPoints = totalPoints;
-	}
-	
 }

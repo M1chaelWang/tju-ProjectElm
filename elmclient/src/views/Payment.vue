@@ -74,17 +74,17 @@ export default {
                 point: 0,
                 date: "",
             },
+            token: "",
+            config: {},
         };
     },
     created() {
         this.user = this.$getSessionStorage("user");
+        this.token = this.$getSessionStorage("token");
+        this.config = { headers: { token: this.token } };
+
         this.$axios
-            .post(
-                "OrdersController/getOrdersById",
-                this.$qs.stringify({
-                    orderId: this.orderId,
-                })
-            )
+            .get(`orders/${this.orderId}`, this.config)
             .then((response) => {
                 this.orders = response.data;
             })
@@ -117,26 +117,15 @@ export default {
             } else {
                 this.$router.push({ path: "/wechatpay" });
             }
-            this.$axios
-                .post(
-                    "OrdersController/updateOrderStateById",
-                    this.$qs.stringify({ orderId: this.orderId })
-                )
-                .catch((error) => {
-                    console.error(error);
-                });
-            this.$axios
-                .post(
-                    "UserController/updateTotalPoints",
-                    this.$qs.stringify({
-                        userId: this.user.userId,
-                        totalPoints: this.orders.orderTotal * 100,
-                    })
-                )
-                .catch((error) => {
-                    console.error(error);
-                });
+            this.updateOrder();
             this.savePoints();
+        },
+        updateOrder() {
+            this.$axios
+                .get(`orders/update/${this.orderId}`, this.config)
+                .catch((error) => {
+                    console.error(error);
+                });
         },
         savePoints() {
             var date = new Date();
@@ -160,18 +149,13 @@ export default {
                 dateArr[3] +
                 ":" +
                 dateArr[4];
-            //this.pointDetail.pointId = 1;
+
             this.pointDetail.userId = this.user.userId;
             this.pointDetail.point = this.orders.orderTotal * 100;
             this.pointDetail.date = strDate;
-            this.$axios
-                .post(
-                    "PointsController/savePoints",
-                    this.$qs.stringify(this.pointDetail)
-                )
-                .catch((error) => {
-                    console.error(error);
-                });
+            this.$axios.post(`points/add`, this.pointDetail, this.config).catch((error) => {
+                console.error(error);
+            });
         },
     },
     components: {

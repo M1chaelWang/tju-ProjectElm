@@ -472,7 +472,7 @@ export default {
   methods: {
     toBusinessList(orderTypeId) {
       this.$router.push({
-        path: "/businessList",
+        path: "/businessList/",
         query: {
           orderTypeId: orderTypeId,
         },

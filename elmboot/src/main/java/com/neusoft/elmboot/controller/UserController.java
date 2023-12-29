@@ -1,70 +1,66 @@
 package com.neusoft.elmboot.controller;
 
 import java.nio.charset.StandardCharsets;
-import java.security.KeyFactory;
-import java.security.PrivateKey;
-import java.security.spec.PKCS8EncodedKeySpec;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 
-import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.neusoft.elmboot.SecurityConfig;
 import com.neusoft.elmboot.po.User;
 import com.neusoft.elmboot.service.UserService;
 
 @RestController
-@RequestMapping("/UserController")
+@RequestMapping("/users")
 public class UserController {
-	@Autowired
-	private UserService userService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private SecurityConfig securityConfig = SecurityConfig.getInstance();
 
-	@RequestMapping("/getUserByIdByPass")
-	public User getUserByIdByPass(User user) throws Exception {
-		String privateKey = "MIIBVAIBADANBgkqhkiG9w0BAQEFAASCAT4wggE6AgEAAkEApShMUM9wkzBleQ0u62u+iRlbnFDP/K2lAlVBMQunLjXXc/97kKyDw5RDpA+h6hAhPDkaOfa0YLglQYjEhEfMMwIDAQABAkBHTDJF4Id0wzvLGknbD9RdUzkdLjXbmwrVCwDtr14osBwWtS0oZpAOAbbwaCTPnxTlgyGWhPLBbVdjsQqFt6ZBAiEA0VZo1tbtTR1eckukQ2J+dZ0mMnr0Nwt5lH8u4V0ZBGkCIQDJ+M3N5mmu2CRT13f0KFf49mjfxL3asSPYz+I/BkyIOwIgAznjr7vsOE4FkJld1LQF4uYjGpAOh3Kj0wgKvupiYlECIQCNGBH18CwOKBKgu5qh53klhEZZZGDZIPyQ3xEHxEe8twIgDipYZ0M9JITNIPOFDW3jaKAnL6pSUdwR1tANKSyWoU8=";
-		try {
-            byte[] decryptedBytes = decryptWithPrivateKey(Base64.getDecoder().decode(user.getPassword()), privateKey);
+    @GetMapping("/user")
+    public List<Object> getUserByIdByPass(User user) throws Exception {
+        String privateKeyString = securityConfig.getPrivateKey();
+        try {
+            byte[] decryptedBytes = securityConfig
+                    .decryptWithPrivateKey(Base64.getDecoder().decode(user.getPassword().getBytes()), privateKeyString);
             String decryptedData = new String(decryptedBytes, StandardCharsets.UTF_8);
 			user.setPassword(decryptedData);
         } catch (Exception e) {
             e.printStackTrace();
         }
-		return userService.getUserByIdByPass(user);
-	}
+        securityConfig.setPassword(user.getPassword());
 
-	@RequestMapping("/getUserById")
-	public int getUserById(User user) throws Exception {
-		return userService.getUserById(user.getUserId());
-	}
+        String AESKey = securityConfig.getAESKey();
+        byte[] decodedKey = Base64.getDecoder().decode(AESKey);
+        SecretKey originalAESKey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
 
-	@RequestMapping("/saveUser")
-	public int saveUser(User user) throws Exception {
-		return userService.saveUser(user);
-	}
+        byte[] encryptedText = SecurityConfig.encryptWithAESKey(user.getPassword(), originalAESKey);
+        String token = SecurityConfig.bytesToHex(encryptedText);
 
-	@RequestMapping("/updateTotalPoints")
-	public void updateTotalPoints(String userId, Integer totalPoints) throws Exception {
-		userService.updateTotalPoints(userId, totalPoints);
-	}
+        List<Object> response = new ArrayList<>();
+        response.add(userService.getUserByIdByPass(user));
+        response.add(token);
+        return response;
+    }
 
-	@RequestMapping("/getTotalPoints")
-	public int getTotalPoints(String userId) throws Exception {
-		return userService.getTotalPoints(userId);
-	}
+    @GetMapping("/{userId}")
+    public int getUserById(@PathVariable("userId") String userId) {
+        return userService.getUserById(userId);
+    }
 
-	@RequestMapping("/subTotalPoints")
-	public void subTotalPoints(String userId, Integer totalPoints) throws Exception {
-		userService.subTotalPoints(userId, totalPoints);
-	}
-
-	// 解密方法
-    private byte[] decryptWithPrivateKey(byte[] data, String privateKey) throws Exception {
-        PrivateKey privateKeyObj = KeyFactory.getInstance("RSA")
-                .generatePrivate(new PKCS8EncodedKeySpec(Base64.getDecoder().decode(privateKey)));
-        Cipher cipher = Cipher.getInstance("RSA");
-        cipher.init(Cipher.DECRYPT_MODE, privateKeyObj);
-        return cipher.doFinal(data);
+    @PostMapping("/add")
+    public int saveUser(@RequestBody User user) {
+        return userService.saveUser(user);
     }
 }

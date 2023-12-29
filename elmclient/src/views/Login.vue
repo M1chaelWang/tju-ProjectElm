@@ -66,18 +66,21 @@
 					return;
 				}
 
-				//登录请求
-				this.$axios.post('UserController/getUserByIdByPass', this.$qs.stringify({
-					userId: this.userId,
-					password: this.encryptData(this.password, "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKUoTFDPcJMwZXkNLutrvokZW5xQz/ytpQJVQTELpy4113P/e5Csg8OUQ6QPoeoQITw5Gjn2tGC4JUGIxIRHzDMCAwEAAQ==")
-				})).then(response => {
-					let user = response.data;
+				// 登录请求
+				this.$axios.get(`users/user`, {
+                    params:{
+                        userId: this.userId,
+					    password: this.encryptData(this.password, "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKUoTFDPcJMwZXkNLutrvokZW5xQz/ytpQJVQTELpy4113P/e5Csg8OUQ6QPoeoQITw5Gjn2tGC4JUGIxIRHzDMCAwEAAQ==")
+                    }
+                }).then(response => {
+					let user = response.data[0];
 					if (user == null) {
 						alert('用户名或密码不正确！');
 					} else {
-						//sessionstorage有容量限制，为了防止数据溢出，所以不将userImg数据放入session中
+						// sessionstorage有容量限制，为了防止数据溢出，所以不将userImg数据放入session中
 						user.userImg = '';
 						this.$setSessionStorage('user', user);
+                        this.$setSessionStorage('token', response.data[1]);
 						this.$router.go(-1);
 					}
 				}).catch(error => {

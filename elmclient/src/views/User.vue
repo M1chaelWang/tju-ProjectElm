@@ -91,145 +91,47 @@ export default {
             user: {},
             totalPoints: 0,
             currentValue: 0,
-            targetValue: 0,
             animationDuration: 4000,
-            pointArr: [],
+            token: "",
+            config: {},
         };
     },
     created() {
         this.user = this.$getSessionStorage("user");
+        this.token = this.$getSessionStorage("token");
+        this.config = { headers: { token: this.token } };
         this.loadTotalPoints();
     },
     methods: {
         updateNumber() {
             const step = Math.floor(
-                this.targetValue / (this.animationDuration / 100)
+                this.totalPoints / (this.animationDuration / 100)
             );
             const update = () => {
                 this.currentValue += step;
-                if (this.currentValue < this.targetValue) {
+                if (this.currentValue < this.totalPoints) {
                     requestAnimationFrame(update);
                 } else {
-                    this.currentValue = this.targetValue;
+                    this.currentValue = this.totalPoints;
                 }
             };
             update();
         },
-        /*
         loadTotalPoints() {
+            var params = {
+                userId: this.user.userId,
+            };
             this.$axios
-                .post(
-                    "UserController/getTotalPoints",
-                    this.$qs.stringify({
-                        userId: this.user.userId,
-                    })
-                )
+                .get("points/validPoints", { params: params, ...this.config })
                 .then((response) => {
                     this.totalPoints = response.data;
-                    this.targetValue = response.data;
                     this.updateNumber();
                 })
                 .catch((error) => {
                     console.error(error);
                 });
         },
-        */
-        loadTotalPoints() {
-            this.$axios
-                .post(
-                    "PointsController/listPointsByOrderUserId",
-                    this.$qs.stringify({
-                        userId: this.user.userId,
-                    })
-                )
-                .then((response) => {
-                    this.pointArr = response.data;
-                    this.checkValid();
-                    this.$axios
-                        .post(
-                            "UserController/getTotalPoints",
-                            this.$qs.stringify({
-                                userId: this.user.userId,
-                            })
-                        )
-                        .then((response) => {
-                            this.totalPoints = response.data;
-                            this.targetValue = response.data;
-                            this.updateNumber();
-                        })
-                        .catch((error) => {
-                            console.error(error);
-                        });
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
-        },
-        checkValid() {
-            const currentTime = new Date();
-            for (let i = 0; i < this.pointArr.length; i++) {
-                if (this.pointArr[i].valid == 0) continue;
-                const givenTime = new Date(
-                    // 年
-                    this.pointArr[i].date.substring(0, 4),
-                    // 月
-                    (
-                        parseInt(
-                            this.pointArr[i].date.substring(
-                                this.pointArr[i].date.indexOf("/") + 1,
-                                this.pointArr[i].date.lastIndexOf("/")
-                            )
-                        ) - 1
-                    ).toString(),
-                    // 日
-                    this.pointArr[i].date.substring(
-                        this.pointArr[i].date.lastIndexOf("/") + 1,
-                        this.pointArr[i].date.indexOf(" ")
-                    ),
-                    // 时
-                    this.pointArr[i].date.substring(
-                        this.pointArr[i].date.indexOf(" ") + 1,
-                        this.pointArr[i].date.indexOf(":")
-                    ),
-                    // 分
-                    this.pointArr[i].date.substring(
-                        this.pointArr[i].date.indexOf(":") + 1,
-                        this.pointArr[i].date.lastIndexOf(":")
-                    ),
-                    // 秒
-                    this.pointArr[i].date.substring(
-                        this.pointArr[i].date.lastIndexOf(":") + 1,
-                        this.pointArr[i].date.length
-                    )
-                );
 
-                const timeDifference = currentTime - givenTime;
-                const minutesDifference = timeDifference / (1000 * 60);
-                if (minutesDifference >= 1) {
-                    this.$axios
-                        .post(
-                            "PointsController/removePoints",
-                            this.$qs.stringify({
-                                pointId: this.pointArr[i].pointId,
-                            })
-                        )
-                        .catch((error) => {
-                            console.error(error);
-                        });
-                    this.$axios
-                        .post(
-                            "UserController/subTotalPoints",
-                            this.$qs.stringify({
-                                userId: this.user.userId,
-                                totalPoints: this.pointArr[i].point,
-                            })
-                        )
-                        .catch((error) => {
-                            console.error(error);
-                        });
-                }
-            }
-        },
         toOrderList() {
             this.$router.push({
                 path: "/orderList",
